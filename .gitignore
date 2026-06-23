@@ -1,0 +1,25 @@
+# build output
+build/
+minidb
+bench_mvcc
+bench_engine
+*.o
+*.d
+*.dSYM/
+
+# database files created at runtime
+data/
+demo_data/
+*.dat
+catalog.meta
+wal.log
+*.log
+
+# editor / tooling
+.clangd
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
