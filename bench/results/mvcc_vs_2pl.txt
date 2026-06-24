@@ -1,0 +1,25 @@
+MiniDB Track B - In-memory MVCC vs strict 2PL (isolates CC cost)
+Machine: Apple Silicon (arm64), 8 cores, 16 GB RAM, Apple clang 17, -O2
+Command: ./bench_mvcc 8 20000
+============================================================
+MiniDB Track B benchmark - MVCC vs strict 2PL
+config: threads=8, txns/thread=20000, keys=200
+
+[read-heavy (95% read-only, 5% writers)]
+  MVCC :  160000 txns in 0.103497 s  =>  1545932 txn/s   (retries: 56)
+  2PL  :  160000 txns in 0.780596 s  =>  204971 txn/s   (retries: 36)
+  -> MVCC speedup: 7.54218x
+
+[balanced  (50% read-only, 50% writers)]
+  MVCC :  160000 txns in 0.113375 s  =>  1411249 txn/s   (retries: 7821)
+  2PL  :  160000 txns in 1.24222 s  =>  128801 txn/s   (retries: 1359)
+  -> MVCC speedup: 10.9567x
+
+[write-hot (10% read-only, 90% writers)]
+  MVCC :  160000 txns in 0.172765 s  =>  926114 txn/s   (retries: 25970)
+  2PL  :  160000 txns in 1.71813 s  =>  93124 txn/s   (retries: 2637)
+  -> MVCC speedup: 9.9449x
+
+[Deadlock demo - strict 2PL]
+  T1 holds A, T2 holds B, each then wants the other's lock.
+  deadlock victims chosen (aborted): 1  (expected 1)

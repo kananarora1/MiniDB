@@ -1,0 +1,18 @@
+MiniDB Track B - End-to-end MVCC vs 2PL through the real engine
+Machine: Apple Silicon (arm64), 8 cores, 16 GB RAM, Apple clang 17, -O2
+Command: ./bench_engine 4 3000
+============================================================
+MiniDB end-to-end engine benchmark - MVCC vs 2PL (through storage)
+config: threads=4, txns/thread=3000, keys=100
+note: absolute numbers are gated by the engine's coarse latch;
+      read the MVCC-vs-2PL *ratio*, not the raw rate.
+
+[read-heavy (90% read-only)]
+  MVCC: 12000 txns in 0.221s => 54227 txn/s (retries: 29)
+  2PL : 12000 txns in 0.239s => 50284 txn/s (retries: 44)
+  -> MVCC/2PL throughput ratio: 1.08x
+
+[write-hot  (20% read-only)]
+  MVCC: 12000 txns in 0.474s => 25317 txn/s (retries: 1796)
+  2PL : 12000 txns in 0.554s => 21663 txn/s (retries: 1495)
+  -> MVCC/2PL throughput ratio: 1.17x
