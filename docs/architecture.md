@@ -1,4 +1,4 @@
-# MiniDB Architecture (Team HeapHackers)
+# MiniDB Architecture
 
 This document walks through the engine layer by layer and traces two requests
 end to end. The companion documents are `design_decisions.md` (why we built it

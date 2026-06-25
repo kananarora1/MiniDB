@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cstddef>
 
-// HeapHackers MiniDB - global compile-time constants.
+// MiniDB - global compile-time constants.
 // Kept in one spot so the page geometry and pool sizing are easy to reason about.
 namespace heapdb {
 
@@ -20,7 +20,7 @@ inline constexpr std::size_t kDefaultFrames = 64;
 inline constexpr uint64_t kNoTxn = 0;
 
 // Concurrency-control discipline a transaction runs under. The engine defaults
-// to snapshot-isolation MVCC (Track B); `SET isolation = 2pl` switches it to
+// to snapshot-isolation MVCC; `SET isolation = 2pl` switches it to
 // strict two-phase locking so transactions take shared/exclusive locks held to
 // commit, with deadlock detection.
 enum class Iso : uint8_t { Mvcc, TwoPL };

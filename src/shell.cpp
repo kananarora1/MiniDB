@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
   }
 
   // Interactive REPL.
-  std::cout << "MiniDB (HeapHackers) - Track B / MVCC. Type SQL ending in ';'.\n"
+  std::cout << "MiniDB - MVCC. Type SQL ending in ';'.\n"
                "Meta: .tables  .crash  .exit\n";
   std::string buffer, line;
   while (true) {

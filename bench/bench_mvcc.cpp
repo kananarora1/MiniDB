@@ -1,4 +1,4 @@
-// Track B benchmark: MVCC vs strict 2PL on an in-memory versioned key/value
+// Benchmark: MVCC vs strict 2PL on an in-memory versioned key/value
 // store. In-memory on purpose, so we measure the concurrency-control cost and
 // not disk I/O. Two stores, one workload driver: MVCC readers use a snapshot and
 // take no lock; 2PL reads take a shared lock and writes an exclusive one.
@@ -14,7 +14,7 @@
 #include <thread>
 #include <vector>
 
-#include "concurrency/lock_manager.h"
+#include "../src/concurrency/lock_manager.h"
 
 using namespace heapdb;
 using Clock = std::chrono::steady_clock;
@@ -211,7 +211,7 @@ int main(int argc, char** argv) {
   int perThread = argc > 2 ? std::atoi(argv[2]) : 20000;
   int keys = 200;
 
-  std::cout << "MiniDB Track B benchmark - MVCC vs strict 2PL\n";
+  std::cout << "MiniDB benchmark - MVCC vs strict 2PL\n";
   std::cout << "config: threads=" << threads << ", txns/thread=" << perThread
             << ", keys=" << keys << "\n";
 

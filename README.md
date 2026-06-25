@@ -1,11 +1,10 @@
-# MiniDB - Team HeapHackers
+# MiniDB
 
 A small but genuinely working relational database engine, built from the ground
-up for the Advanced DBMS capstone. It runs SQL over a page-based storage engine
-with a B+ tree index, a cost-based planner, snapshot-isolation MVCC, and
-write-ahead-logging crash recovery.
+up in modern C++. It runs SQL over a page-based storage engine with a B+ tree
+index, a cost-based planner, snapshot-isolation MVCC, and write-ahead-logging
+crash recovery.
 
-- **Extension track:** **Track B - Concurrency (replace 2PL with MVCC).**
 - **Language:** C++17, no third-party libraries.
 - **Status:** all core features implemented and tested end-to-end; 23 SQL
   integration assertions + 8 engine-level concurrency assertions pass; recovery
@@ -15,17 +14,6 @@ write-ahead-logging crash recovery.
   deadlock detection - chosen per session, demonstrable through SQL.
 
 ---
-
-## Team
-
-**Team name:** HeapHackers
-
-| Member | Scaler Email | Roll Number |
-|--------|--------------|-------------|
-| Kanan Arora | kanan.23bcs10180@sst.scaler.com | 10180 |
-| Ayush Kesharwani | ayush.23bcs10112@sst.scaler.com | 10112 |
-| Samrudh Vandkudri Jain | samrudh.23bcs10123@sst.scaler.com | 10123 |
-
 
 ## 1. Project Overview
 
@@ -243,9 +231,9 @@ abort invisibility, first-writer-wins conflicts (MVCC), 2PL committed reads, and
 Both disciplines run through the SQL engine; MVCC is the default. We state the
 trade-off plainly.
 
-**Why MVCC is the default.** Track B's mandate is *"replace 2PL with MVCC."*
-MVCC's defining property - readers take no locks and never block writers - is the
-whole point of the extension, so it is the engine's primary mode.
+**Why MVCC is the default.** MVCC's defining property - readers take no locks and
+never block writers - is the property that makes it the more interesting design,
+so it is the engine's primary mode.
 
 **What 2PL gives you, and costs.** 2PL provides the stronger, fully
 **serializable** guarantee (no write-skew), and is the right baseline for the
@@ -294,7 +282,7 @@ flushing): committed rows survive, uncommitted rows vanish.
 
 ---
 
-## 9. Extension Track - B (MVCC)
+## 9. Concurrency Deep-Dive (MVCC)
 
 **Motivation.** Under strict 2PL a reader must take a shared lock, so it waits
 behind any writer holding an exclusive lock on the same row - read throughput
@@ -323,7 +311,7 @@ We run **two** complementary MVCC-vs-2PL benchmarks.
 **Setup.** An in-memory versioned key/value store with two interchangeable
 backends (MVCC snapshot isolation vs strict 2PL via our `LockManager`). Using an
 in-memory store strips away disk I/O so the numbers measure the **concurrency-
-control discipline alone** - the variable Track B is about. Workload: 8 threads,
+control discipline alone** - the variable under study. Workload: 8 threads,
 20,000 transactions/thread, 200 keys; three read/write mixes. Machine: Apple
 Silicon, 8 cores, 16 GB RAM, Apple clang 17, `-O2`. Reproduce with
 `make bench_mvcc && ./bench_mvcc 8 20000`.
@@ -461,7 +449,7 @@ Meta-commands: `.tables`, `.crash` (simulate a crash - restart to see recovery),
 ## Repository Layout
 
 ```
-Team_HeapHackers/
+MiniDB/
 ├── README.md                ← this file
 ├── Makefile
 ├── src/                     ← engine source (see module map in §2)

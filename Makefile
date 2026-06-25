@@ -1,4 +1,4 @@
-# MiniDB — HeapHackers (Track B: MVCC)
+# MiniDB build
 # Requires a C++17 compiler with pthreads.
 
 CXX      ?= c++

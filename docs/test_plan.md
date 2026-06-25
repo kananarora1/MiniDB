@@ -1,4 +1,4 @@
-# MiniDB Test Plan (Team HeapHackers)
+# MiniDB Test Plan
 
 Two layers of automated tests, both run by `make test`:
 

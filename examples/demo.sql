@@ -1,4 +1,4 @@
--- MiniDB demo (Team HeapHackers, Track B / MVCC)
+-- MiniDB demo (MVCC)
 -- run with:  ./minidb ./demo_data examples/demo.sql
 
 -- two tables, each with a primary-key B+ tree index

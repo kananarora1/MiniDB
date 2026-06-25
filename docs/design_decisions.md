@@ -1,4 +1,4 @@
-# MiniDB Design Decisions (Team HeapHackers)
+# MiniDB Design Decisions
 
 We record decisions as short ADR-style notes: the **context** (the problem), the
 **alternatives** we weighed, the **decision**, and the **consequences** (what we
@@ -87,10 +87,10 @@ equi-joins only, and the build side must fit in memory. Implemented as
 
 ---
 
-### DR-7 - Concurrency control: MVCC snapshot isolation (Track B)
+### DR-7 - Concurrency control: MVCC snapshot isolation
 
-**Context.** Strict 2PL makes readers wait behind writers; Track B asks us to
-replace it with MVCC and compare.
+**Context.** The engine replaces 2PL with MVCC snapshot
+isolation and compares the two disciplines directly.
 **Alternatives.** Strict 2PL (strong, but readers block); MVCC snapshot
 isolation (readers never block, slightly weaker guarantee); SSI (serializable,
 more machinery).
